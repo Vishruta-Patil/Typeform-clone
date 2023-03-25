@@ -5,7 +5,7 @@ import { industriesData } from "data/industriesData";
 import { styled } from "@mui/material/styles";
 import { Paper } from "@mui/material";
 
-export default function Sizes() {
+export const AutocompleteInput = () => {
   const CssTextField = styled(TextField)({
     "& label.Mui-focused": {
       color: "white",
