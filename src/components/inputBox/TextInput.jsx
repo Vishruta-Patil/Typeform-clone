@@ -12,17 +12,10 @@ export const TextInput = () => {
       });
     return (
         <CssTextField
-          sx={{ input: { color: "white", fontSize: "2rem" } }}
+          sx={{ input: { color: "white", fontSize: "2.5rem" } }}
           variant="standard"
           fullWidth
           placeholder="Type your answers here..."
-          InputLabelProps={{
-            style: {
-              color: "#4D4D4D",
-              fontSize: "2rem",
-              fontWeight: "bold",
-            },
-          }}
         />
     )
 }

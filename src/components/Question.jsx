@@ -2,6 +2,7 @@ import { Box } from "@mui/system";
 import Button from "@mui/material/Button";
 import DoneIcon from "@mui/icons-material/Done";
 import { TextInput } from "./inputBox/TextInput";
+import AutoCompleteInput from "./inputBox/AutoCompleteInput";
 
 export const Question = () => {
   return (
@@ -18,7 +19,7 @@ export const Question = () => {
     >
       <Box sx={{ fontSize: "2rem" }}>
         <p style={{ fontSize: "2.5rem" }}>1. What's your first name?*</p>
-        <TextInput />
+        <AutoCompleteInput />
       </Box>
 
       <Box
