@@ -1,10 +1,13 @@
 import './App.css';
 import { Question } from 'components/Question';
+import { useTypeForm } from 'context/typeformContext';
 
 function App() {
+  const {typeFormState} = useTypeForm();
+  console.log(typeFormState.response)
   return (
     <div className="App" >
-      <Question />
+      <Question questionNo={typeFormState.questionNo}/>
     </div>
   );
 }

@@ -1,11 +1,13 @@
 import { Box } from "@mui/system";
-import Button from "@mui/material/Button";
-import DoneIcon from "@mui/icons-material/Done";
 import { TextInput } from "./inputBox/TextInput";
 import { AutocompleteInput } from "./inputBox/AutoCompleteInput";
-import { OptionInput } from "./inputBox/OptionInput";
+import { typeFormStructure } from "data/typeformStructure";
+import { FormCheckBox } from "./inputBox/FormCheckbox";
+import { ButtonCantrol } from "./ButtonCantrol";
 
-export const Question = () => {
+export const Question = ({ questionNo }) => {
+  const item = typeFormStructure[questionNo];
+
   return (
     <Box
       sx={{
@@ -19,29 +21,29 @@ export const Question = () => {
       }}
     >
       <Box sx={{ fontSize: "2rem" }}>
-        <p style={{ fontSize: "2.5rem" }}>1. What's your first name?*</p>
-        <OptionInput />
-      </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          gap: "1rem",
-          alignItems: "center",
-          marginTop: "2rem",
-        }}
-      >
-        <Button
-          sx={{ background: "#0077FF", fontSize: "1.5rem" }}
-          variant="contained"
-          endIcon={<DoneIcon />}
-        >
-          OK
-        </Button>
-        <p>
-          press <span style={{ fontWeight: "bold" }}>Enter</span>
+        <p style={{ fontSize: "2.5rem" }}>
+          {item?.no} {item?.question}
         </p>
+        <p style={{ fontSize: "2rem", color: "gray" }}>{item?.intro}</p>
+        {item?.type === "intro" && (
+          <div style={{ fontSize: "2rem", color: "gray" }}>
+            You will spend <br />
+            - 6 hours/week for the first 5 weeks <br />- 15 hours/week for the
+            last 3 weeks
+          </div>
+        )}
+        {item?.type === "text" && (
+          <TextInput questionType={item?.questionType} />
+        )}
+        {item?.type === "autocomplete" && <AutocompleteInput />}
+        {item?.type === "option" && (
+          <FormCheckBox
+            questionNo={questionNo}
+            optionCount={item?.optionCount}
+          />
+        )}
       </Box>
+      {item?.type !== "option" && <ButtonCantrol questionNo={questionNo}/>}
     </Box>
   );
 };
