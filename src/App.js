@@ -1,12 +1,15 @@
 import './App.css';
 import { Question } from 'components/Question';
 import { useTypeForm } from 'context/typeformContext';
+import { ProgressBar } from 'components/ProgressBar';
 
 function App() {
   const {typeFormState} = useTypeForm();
   console.log(typeFormState.response)
   return (
-    <div className="App" >
+    <div className="App">
+      {/* <p>Shree Krishna</p> */}
+      <ProgressBar />
       <Question questionNo={typeFormState.questionNo}/>
     </div>
   );
