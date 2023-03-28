@@ -2,15 +2,18 @@ import './App.css';
 import { Question } from 'components/Question';
 import { useTypeForm } from 'context/typeformContext';
 import { ProgressBar } from 'components/ProgressBar';
+import { typeFormStructure } from 'data/typeformStructure';
 
 function App() {
   const {typeFormState} = useTypeForm();
-  console.log(typeFormState.response)
+  const questionNo = typeFormState.questionNo
+  const item = typeFormStructure[questionNo];
+  console.log(item)
   return (
     <div className="App">
-      {/* <p>Shree Krishna</p> */}
-      <ProgressBar />
-      <Question questionNo={typeFormState.questionNo}/>
+      {(item.no !== "") && <ProgressBar />} 
+      {questionNo === 8 ? <p className='center-bold'>All done! Thanks for your time.</p> :
+      <Question questionNo={questionNo}/>}
     </div>
   );
 }

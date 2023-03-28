@@ -20,7 +20,11 @@ export const Question = ({ questionNo }) => {
         maxWidth: "1000px",
       }}
     >
-      <Box sx={{ fontSize: "2rem" }}>
+      <Box
+        key={questionNo}
+        sx={{ fontSize: "2rem" }}
+        className={`${item.no !== "" && "slide"}`}
+      >
         <p style={{ fontSize: "2.5rem" }}>
           {item?.no} {item?.question}
         </p>
@@ -33,9 +37,14 @@ export const Question = ({ questionNo }) => {
           </div>
         )}
         {item?.type === "text" && (
-          <TextInput questionType={item?.questionType} />
+          <TextInput
+            questionType={item?.questionType}
+            questionNo={questionNo}
+          />
         )}
-        {item?.type === "autocomplete" && <AutocompleteInput />}
+        {item?.type === "autocomplete" && (
+          <AutocompleteInput questionNo={questionNo} />
+        )}
         {item?.type === "option" && (
           <FormCheckBox
             questionNo={questionNo}
@@ -43,7 +52,7 @@ export const Question = ({ questionNo }) => {
           />
         )}
       </Box>
-      {item?.type !== "option" && <ButtonCantrol questionNo={questionNo}/>}
+      {item?.type === "intro" && <ButtonCantrol questionNo={questionNo} />}
     </Box>
   );
 };
