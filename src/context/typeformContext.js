@@ -15,7 +15,8 @@ const initialState = {
         email: "",
         phoneNO: "",
         phoneExtension: 91
-    }
+    },
+    errorMessage: ""
 }
 
 const TypeFormProvider = ({children}) => {

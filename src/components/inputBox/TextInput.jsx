@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import { ButtonCantrol } from "components/ButtonCantrol";
 import SearchCountry from "components/SearchCountry";
 import { useTypeForm } from "context/typeformContext";
-import { SET_RESPONSE } from "reducer/constants";
+import { SET_ERROR_MSG, SET_RESPONSE } from "reducer/constants";
 
 export const TextInput = ({ item, questionNo }) => {
   const { typeFormDispatch, typeFormState } = useTypeForm();
@@ -27,6 +27,10 @@ export const TextInput = ({ item, questionNo }) => {
             typeFormDispatch({
               type: SET_RESPONSE,
               payload: { query: item?.questionType, ans: e.target.value },
+            });
+            typeFormDispatch({
+              type: SET_ERROR_MSG,
+              payload: "",
             });
           }}
           type={item?.questionType === "phoneNO" ? "number" : "text"}

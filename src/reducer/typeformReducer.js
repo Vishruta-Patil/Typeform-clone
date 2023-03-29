@@ -1,4 +1,4 @@
-import { SET_QUESTION_NO, SET_RESPONSE } from "./constants";
+import { SET_ERROR_MSG, SET_QUESTION_NO, SET_RESPONSE } from "./constants";
 
 export const typeFormReducer = (state, action) => {
     switch(action.type) {
@@ -14,6 +14,11 @@ export const typeFormReducer = (state, action) => {
                     ...state.response,
                     [action.payload.query] : action.payload.ans
                 }
+            }
+        case SET_ERROR_MSG:
+            return {
+                ...state,
+                errorMessage: action.payload
             }
          default:
             return state;   
