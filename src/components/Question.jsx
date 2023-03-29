@@ -38,7 +38,7 @@ export const Question = ({ questionNo }) => {
         )}
         {item?.type === "text" && (
           <TextInput
-            questionType={item?.questionType}
+            item={item}
             questionNo={questionNo}
           />
         )}

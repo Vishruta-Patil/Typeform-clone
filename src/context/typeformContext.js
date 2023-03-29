@@ -13,7 +13,8 @@ const initialState = {
         role: [],
         goal: [],
         email: "",
-        phoneNO: ""
+        phoneNO: "",
+        phoneExtension: 91
     }
 }
 

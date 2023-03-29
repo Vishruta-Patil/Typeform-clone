@@ -80,6 +80,7 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
                 />
               }
               label={item}
+              key={index}
             />
           ))}
         </FormGroup>

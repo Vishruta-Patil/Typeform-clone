@@ -34,7 +34,7 @@ export const typeFormStructure = [
       "VC",
       "other",
     ],
-    optionCount: 2,
+    optionCount: 1,
     optionLabel: "role",
   },
   {
@@ -55,7 +55,7 @@ export const typeFormStructure = [
       "Structured approach to growth",
       "Build a growth team",
     ],
-    optionCount: 1,
+    optionCount: 2,
     optionLabel: "goal",
   },
   {
