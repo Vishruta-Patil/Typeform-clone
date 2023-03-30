@@ -5,14 +5,14 @@ import TextField from "@mui/material/TextField";
 import { industriesData } from "data/industriesData";
 import { Paper } from "@mui/material";
 import { useTypeForm } from "context/typeformContext";
-import { SET_RESPONSE } from "reducer/constants";
+import { SET_ERROR_MSG, SET_RESPONSE } from "reducer/constants";
 import { ButtonCantrol } from "components/ButtonCantrol";
 
 export const AutocompleteInput = ({questionNo}) => {
   const { typeFormDispatch, typeFormState } = useTypeForm();
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
+    <Box sx={{ display: "flex", flexDirection: "column", color:"white" }}>
       <Autocomplete
         size="small"
         options={industriesData}
@@ -22,11 +22,21 @@ export const AutocompleteInput = ({questionNo}) => {
             type: SET_RESPONSE,
             payload: { query: "industry", ans: value },
           });
+          typeFormDispatch({
+            type: SET_ERROR_MSG,
+            payload: "",
+          });
         }}
         renderInput={(params) => (
           <TextField
             {...params}
-            sx={{ input: { color: "white", fontSize: "2.5rem" } }}
+            sx={{
+              "& & label.Mui-focused": { color: "white" },
+              "& .MuiInput-underline:before": { borderBottomColor: "gray" },
+              "& .MuiInput-underline:after": { borderBottomColor: "gray" },
+              input: { color: "white", fontSize: "2.5rem" },
+              // "& .MuiAutocomplete-noOptions" : {color:"white"}
+            }}
             variant="standard"
             placeholder="Type or Select an option"
             value={typeFormState.response.industry}
@@ -39,8 +49,10 @@ export const AutocompleteInput = ({questionNo}) => {
             {children}
           </Paper>
         )}
+      sx={{".MuiAutocomplete-noOptions" : {bgcolor:"red"}}}
+      noOptionsText={'No Suggestions'}
       />
-      <ButtonCantrol questionNo={questionNo} />
+      <ButtonCantrol questionNo={questionNo} isAutoComplete={true}/>
     </Box>
   );
 };

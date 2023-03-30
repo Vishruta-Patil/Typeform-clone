@@ -8,17 +8,28 @@ import {  useEffect } from "react";
 import { typeFormStructure } from "data/typeformStructure";
 import { submitResponseToEmail } from "service/handler";
 
-export const ButtonCantrol = ({ clickHandler, flag, questionNo }) => {
+export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete }) => {
   const { typeFormState, typeFormDispatch } = useTypeForm();
 
   const item = typeFormStructure[questionNo];
   const itemValue = typeFormState?.response[item?.questionType];
+  const autocompleteValue = typeFormState?.response["industry"]
 
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const phoneNoRegex = /^\d{10}$/;
 
   const nextQuestion = () => {
-    if (itemValue === "")
+    if(isAutoComplete) {
+      if(autocompleteValue !== "") {
+        console.log(autocompleteValue)
+        typeFormDispatch({ type: SET_ERROR_MSG, payload: "" });
+        typeFormDispatch({ type: SET_QUESTION_NO });
+      } else {
+        console.log(autocompleteValue)
+        typeFormDispatch({ type: SET_ERROR_MSG, payload: "Please Fill this autocomplete" });
+      }
+    }
+    else if (itemValue === "")
       typeFormDispatch({ type: SET_ERROR_MSG, payload: "Please Fill this in" });
     else if (item?.questionType === "email" && !itemValue?.match(emailRegex))
       typeFormDispatch({
@@ -54,7 +65,7 @@ export const ButtonCantrol = ({ clickHandler, flag, questionNo }) => {
       document.removeEventListener("keypress", handleKeypress);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemValue]);
+  }, [itemValue, autocompleteValue]);
 
   const submitHandler = () => {
     nextQuestion();

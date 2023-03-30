@@ -58,7 +58,7 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
         }}
         variant="standard"
       >
-        <FormLabel component="legend">Pick two</FormLabel>
+        <FormLabel component="legend">{`Pick ${optionCount === 1 ? 'one' :'two'}`}</FormLabel>
         <FormGroup>
           {data.map((item, index) => (
             <FormControlLabel
