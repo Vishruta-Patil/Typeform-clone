@@ -3,10 +3,9 @@ import Button from "@mui/material/Button";
 import DoneIcon from "@mui/icons-material/Done";
 import Alert from "@mui/material/Alert";
 import { useTypeForm } from "context/typeformContext";
-import { SET_ERROR_MSG, SET_QUESTION_NO, SET_RESPONSE } from "reducer/constants";
+import { SET_ERROR_MSG, SET_QUESTION_NO } from "reducer/constants";
 import {  useEffect } from "react";
 import { typeFormStructure } from "data/typeformStructure";
-import { submitResponseToEmail } from "service/handler";
 
 export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete, ans }) => {
   const { typeFormState, typeFormDispatch } = useTypeForm();
@@ -63,11 +62,6 @@ export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete, 
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemValue, autocompleteValue]);
-
-  const submitHandler = () => {
-    nextQuestion();
-    submitResponseToEmail(typeFormState?.response);
-  };
 
   return (
     <Box
