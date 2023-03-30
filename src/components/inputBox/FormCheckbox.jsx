@@ -8,7 +8,11 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Checkbox from "@mui/material/Checkbox";
 import { typeFormStructure } from "data/typeformStructure";
 import { useTypeForm } from "context/typeformContext";
-import { SET_RESPONSE } from "reducer/constants";
+import {
+  SET_ERROR_MSG,
+  SET_QUESTION_NO,
+  SET_RESPONSE,
+} from "reducer/constants";
 import { ButtonCantrol } from "components/ButtonCantrol";
 
 export const FormCheckBox = ({ questionNo, optionCount }) => {
@@ -18,10 +22,22 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
   const [ans, setAns] = React.useState([]);
   const { typeFormDispatch } = useTypeForm();
 
+  const clickHandler = () => {
+    typeFormDispatch({
+      type: SET_RESPONSE,
+      payload: { query: typeFormStructure[questionNo]?.optionLabel, ans: ans },
+    });
+    setAns([]);
+  };
+
   const handleChange = (event) => {
     setState({
       ...state,
       [event.target.name]: event.target.checked,
+    });
+    typeFormDispatch({
+      type: SET_ERROR_MSG,
+      payload: "",
     });
   };
 
@@ -35,13 +51,10 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
   });
   const error = objectValArray.filter((v) => v).length !== optionCount;
 
-  const clickHandler = () => {
-    typeFormDispatch({
-      type: SET_RESPONSE,
-      payload: { query: typeFormStructure[questionNo]?.optionLabel, ans: ans },
-    });
-    setAns([])
-  }
+  // const singleMCQ = () => {
+  //   clickHandler();
+  //   typeFormDispatch({ type: SET_QUESTION_NO });
+  // };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -58,10 +71,14 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
         }}
         variant="standard"
       >
-        <FormLabel component="legend">{`Pick ${optionCount === 1 ? 'one' :'two'}`}</FormLabel>
+        <FormLabel
+          component="legend"
+          sx={{ color: "white", fontSize: "1.5rem" }}
+        >{`Pick ${optionCount === 2 ? "two" : "one"}`}</FormLabel>
         <FormGroup>
           {data.map((item, index) => (
             <FormControlLabel
+              // onClick={singleMCQ}
               sx={{
                 background: "#1A1A1A",
                 margin: "5px",
@@ -84,9 +101,18 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
             />
           ))}
         </FormGroup>
-        <FormHelperText>You can display an error</FormHelperText>
+        {error ? (
+          <FormHelperText sx={{ fontSize: "1.5rem" }}>
+            Select {optionCount === 2 ? 2 : 1} option
+          </FormHelperText>
+        ) : (
+          <ButtonCantrol
+            clickHandler={clickHandler}
+            flag={true}
+            isRole={true}
+          />
+        )}
       </FormControl>
-      <ButtonCantrol clickHandler={clickHandler} flag={true}/>
     </Box>
   );
 };

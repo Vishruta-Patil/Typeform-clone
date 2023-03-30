@@ -21,13 +21,10 @@ export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete }
   const nextQuestion = () => {
     if(isAutoComplete) {
       if(autocompleteValue !== "") {
-        console.log(autocompleteValue)
         typeFormDispatch({ type: SET_ERROR_MSG, payload: "" });
         typeFormDispatch({ type: SET_QUESTION_NO });
-      } else {
-        console.log(autocompleteValue)
-        typeFormDispatch({ type: SET_ERROR_MSG, payload: "Please Fill this autocomplete" });
-      }
+      } else 
+        typeFormDispatch({ type: SET_ERROR_MSG, payload: "Oops! Please make a selection" });
     }
     else if (itemValue === "")
       typeFormDispatch({ type: SET_ERROR_MSG, payload: "Please Fill this in" });
