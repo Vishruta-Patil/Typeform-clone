@@ -9,15 +9,16 @@ export const Question = ({ questionNo }) => {
   const item = typeFormStructure[questionNo];
 
   return (
-    <Box
-      sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        padding: "1rem",
-        width: "750px",
-        maxWidth: "1000px",
+    <div
+     className="hero-container"
+      style={{
+        // position: "absolute",
+        // top: "50%",
+        // left: "50%",
+        // transform: "translate(-50%, -50%)",
+        // padding: "1rem",
+        // width: "750px",
+        // maxWidth: "1000px",
       }}
     >
       <Box
@@ -53,6 +54,6 @@ export const Question = ({ questionNo }) => {
         )}
       </Box>
       {item?.type === "intro" && <ButtonCantrol questionNo={questionNo} />}
-    </Box>
+    </div>
   );
 };

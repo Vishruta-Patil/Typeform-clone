@@ -23,3 +23,9 @@ code {
 .MuiAutocomplete-noOptions {
   color: "red"
 }
+
+@media screen and (max-width: 500px) {
+  html {
+    font-size: 50.5%;
+  }
+}

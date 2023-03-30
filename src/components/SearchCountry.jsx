@@ -24,7 +24,6 @@ const style = {
 };
 
 const Flag = ({ code }) => {
-  console.log(code);
   return (
     <img
       loading="lazy"

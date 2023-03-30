@@ -3,12 +3,12 @@ import Button from "@mui/material/Button";
 import DoneIcon from "@mui/icons-material/Done";
 import Alert from "@mui/material/Alert";
 import { useTypeForm } from "context/typeformContext";
-import { SET_ERROR_MSG, SET_QUESTION_NO } from "reducer/constants";
+import { SET_ERROR_MSG, SET_QUESTION_NO, SET_RESPONSE } from "reducer/constants";
 import {  useEffect } from "react";
 import { typeFormStructure } from "data/typeformStructure";
 import { submitResponseToEmail } from "service/handler";
 
-export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete }) => {
+export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete, ans }) => {
   const { typeFormState, typeFormDispatch } = useTypeForm();
 
   const item = typeFormStructure[questionNo];
@@ -50,10 +50,10 @@ export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete }
   };
 
   useEffect(() => {
-    function handleKeypress(event) {
+     function handleKeypress(event) {
       if (event.key === "Enter") {
         event.preventDefault();
-        nextQuestion();
+        nextQuestion()
       }
     }
     document.addEventListener("keypress", handleKeypress);

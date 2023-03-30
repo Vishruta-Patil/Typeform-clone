@@ -13,10 +13,8 @@
   font-size: 2.5rem;
 }
 
-
 .slide {
-  animation: slideUp .3s ease-in;
-  
+  animation: slideUp 0.3s ease-in;
 }
 
 @keyframes slideUp {
@@ -26,7 +24,20 @@
 
   100% {
     transform: translateY(0);
-    
   }
 }
 
+.hero-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  max-width: 1000px;
+}
+
+@media screen and (min-width: 900px) {
+  .hero-container {
+    width: 750px;
+  }
+}

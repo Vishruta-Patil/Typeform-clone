@@ -20,7 +20,7 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
   const objectData = Object.assign(...data.map((k) => ({ [k]: false })));
   const [state, setState] = React.useState(objectData);
   const [ans, setAns] = React.useState([]);
-  const { typeFormDispatch } = useTypeForm();
+  const {  typeFormDispatch } = useTypeForm();
 
   const clickHandler = () => {
     typeFormDispatch({
@@ -46,15 +46,17 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
     setAns(newArr);
   }, [state]);
 
+  
   var objectValArray = Object.keys(state).map(function (key) {
     return state[key];
   });
+
   const error = objectValArray.filter((v) => v).length !== optionCount;
 
-  // const singleMCQ = () => {
-  //   clickHandler();
-  //   typeFormDispatch({ type: SET_QUESTION_NO });
-  // };
+  const singleMCQ = () => {
+    clickHandler();
+    typeFormDispatch({ type: SET_QUESTION_NO });
+  };
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -76,9 +78,9 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
           sx={{ color: "white", fontSize: "1.5rem" }}
         >{`Pick ${optionCount === 2 ? "two" : "one"}`}</FormLabel>
         <FormGroup>
-          {data.map((item, index) => (
+          {data?.map((item, index) => (
             <FormControlLabel
-              // onClick={singleMCQ}
+              onClick={() => optionCount === 1 && clickHandler(true)}
               sx={{
                 background: "#1A1A1A",
                 margin: "5px",
@@ -107,9 +109,9 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
           </FormHelperText>
         ) : (
           <ButtonCantrol
-            clickHandler={clickHandler}
+            clickHandler={singleMCQ}
             flag={true}
-            isRole={true}
+            ans={ans}
           />
         )}
       </FormControl>
