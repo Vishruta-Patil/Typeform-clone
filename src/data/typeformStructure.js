@@ -55,6 +55,11 @@ export const typeFormStructure = [
       "Structured approach to growth",
       "Build a growth team",
     ],
+    optionForFounder: [
+      "Structured approach to growth",
+      "Build a growth team",
+      "Connect with like-minded people"
+    ],
     optionCount: 2,
     optionLabel: "goal",
   },

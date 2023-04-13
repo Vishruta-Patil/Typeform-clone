@@ -1,3 +1,7 @@
 export const SET_QUESTION_NO = "SET_QUESTION_NO"
 export const SET_RESPONSE = "SET_RESPONSE"
 export const SET_ERROR_MSG = "SET_ERROR_MSG"
+export const SET_GOALS = "SET_GOALS"
+export const REMOVE_GOAL = "REMOVE_GOAL"
+export const SET_ROLE = "SET_ROLE"
+export const REMOVE_ROLE = "REMOVE_ROLE"

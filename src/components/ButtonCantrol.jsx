@@ -7,7 +7,7 @@ import { SET_ERROR_MSG, SET_QUESTION_NO } from "reducer/constants";
 import {  useEffect } from "react";
 import { typeFormStructure } from "data/typeformStructure";
 
-export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete, ans }) => {
+export const ButtonCantrol = ({ questionNo, isAutoComplete }) => {
   const { typeFormState, typeFormDispatch } = useTypeForm();
 
   const item = typeFormStructure[questionNo];
@@ -42,7 +42,6 @@ export const ButtonCantrol = ({ clickHandler, flag, questionNo, isAutoComplete, 
       });
     else {
       if (typeFormState.errorMessage === "") {
-        flag && clickHandler();
         typeFormDispatch({ type: SET_QUESTION_NO });
       }
     }

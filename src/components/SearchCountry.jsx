@@ -28,7 +28,7 @@ const Flag = ({ code }) => {
     <img
       loading="lazy"
       src={`https://flagcdn.com/28x21/${code?.toLowerCase()}.png`}
-      srcset={`https://flagcdn.com/56x42/${code?.toLowerCase()}.png 2x`}
+      srcSet={`https://flagcdn.com/56x42/${code?.toLowerCase()}.png 2x`}
       width="28"
       height="21"
       alt="flag"

@@ -9,26 +9,26 @@ import Checkbox from "@mui/material/Checkbox";
 import { typeFormStructure } from "data/typeformStructure";
 import { useTypeForm } from "context/typeformContext";
 import {
+  REMOVE_GOAL,
+  REMOVE_ROLE,
   SET_ERROR_MSG,
-  SET_QUESTION_NO,
-  SET_RESPONSE,
+  SET_GOALS,
+  SET_ROLE,
 } from "reducer/constants";
 import { ButtonCantrol } from "components/ButtonCantrol";
 
 export const FormCheckBox = ({ questionNo, optionCount }) => {
-  const data = typeFormStructure[questionNo].options;
+  const { typeFormState, typeFormDispatch } = useTypeForm();
+
+  let data = typeFormStructure[questionNo].options;
+  if (
+    optionCount === 2 &&
+    typeFormState.response.role.includes("Founder or CXO")
+  )
+    data = typeFormStructure[questionNo].optionForFounder;
+
   const objectData = Object.assign(...data.map((k) => ({ [k]: false })));
   const [state, setState] = React.useState(objectData);
-  const [ans, setAns] = React.useState([]);
-  const {  typeFormDispatch } = useTypeForm();
-
-  const clickHandler = () => {
-    typeFormDispatch({
-      type: SET_RESPONSE,
-      payload: { query: typeFormStructure[questionNo]?.optionLabel, ans: ans },
-    });
-    setAns([]);
-  };
 
   const handleChange = (event) => {
     setState({
@@ -41,21 +41,27 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
     });
   };
 
-  React.useEffect(() => {
-    const newArr = Object.keys(state).filter((item) => state[item]);
-    setAns(newArr);
-  }, [state]);
-
-  
   var objectValArray = Object.keys(state).map(function (key) {
     return state[key];
   });
 
   const error = objectValArray.filter((v) => v).length !== optionCount;
 
-  const singleMCQ = () => {
-    clickHandler();
-    typeFormDispatch({ type: SET_QUESTION_NO });
+  const handleGoal = (item) => {
+    if (typeFormState.response.goal.includes(item)) {
+      typeFormDispatch({ type: REMOVE_GOAL, payload: item });
+    } else {
+      typeFormDispatch({ type: SET_GOALS, payload: item });
+    }
+  };
+
+  const handleRole = (item) => {
+    console.log(item);
+    if (typeFormState.response.role.includes(item)) {
+      typeFormDispatch({ type: REMOVE_ROLE, payload: item });
+    } else {
+      typeFormDispatch({ type: SET_ROLE, payload: item });
+    }
   };
 
   return (
@@ -80,7 +86,6 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
         <FormGroup>
           {data?.map((item, index) => (
             <FormControlLabel
-              onClick={() => optionCount === 1 && clickHandler(true)}
               sx={{
                 background: "#1A1A1A",
                 margin: "5px",
@@ -96,6 +101,9 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
                     "& .MuiSvgIcon-root": { fontSize: 28 },
                     color: "white",
                   }}
+                  onClick={() =>
+                    optionCount !== 1 ? handleGoal(item) : handleRole(item)
+                  }
                 />
               }
               label={item}
@@ -108,11 +116,7 @@ export const FormCheckBox = ({ questionNo, optionCount }) => {
             Select {optionCount === 2 ? 2 : 1} option
           </FormHelperText>
         ) : (
-          <ButtonCantrol
-            clickHandler={singleMCQ}
-            flag={true}
-            ans={ans}
-          />
+          <ButtonCantrol />
         )}
       </FormControl>
     </Box>
